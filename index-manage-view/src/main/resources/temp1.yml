@@ -1,0 +1,10 @@
+source:
+  type: "mysql"
+  config:
+    host-port: 10.2.25.197:3306
+    database: index_cal_center
+    username: root
+    password: Mysql_123
+
+sink:
+  type: "console"

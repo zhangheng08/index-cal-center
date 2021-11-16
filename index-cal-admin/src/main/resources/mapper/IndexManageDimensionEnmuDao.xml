@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gc.stcc.indexcal.manager.model.mapper.IndexManageDimensionEnmuDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.gc.stcc.indexcal.common.model.IndexManageDimensionEnmuEntity" id="indexManageDimensionEnmuMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="className" column="class_name"/>
+        <result property="redisKey" column="redis_key"/>
+        <result property="dimensionId" column="dimension_id"/>
+    </resultMap>
+
+
+</mapper>

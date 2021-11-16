@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: index-cal-demo
+  cache:
+    type: ehcache
+    ehcache:
+      config: ehcache.xml
+  resources:
+    add-mappings: true
+
+server:
+  port: 8358
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8356/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 30
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 60000

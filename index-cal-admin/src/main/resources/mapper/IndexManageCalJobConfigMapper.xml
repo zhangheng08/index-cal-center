@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gc.stcc.indexcal.manager.model.mapper.IndexManageCalJobConfigMapper" >
+
+    <resultMap id="BaseResultMap" type="com.gc.stcc.indexcal.common.model.IndexManageCalJobConfig" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="index_code" property="indexCode" jdbcType="VARCHAR" />
+        <result column="fact_table_name" property="factTableName" jdbcType="VARCHAR" />
+        <result column="tenant_id" property="tenantId" jdbcType="VARCHAR" />
+        <result column="dim_config" property="dimConfig" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        `id`, `index_code`, `fact_table_name`, `tenant_id`, dim_config
+    </sql>
+
+    <select id="getAll" resultType="com.gc.stcc.indexcal.common.model.IndexManageCalJobConfig">
+        select <include refid="Base_Column_List" /> from index_manage_index_cal_config
+    </select>
+
+    <select id="fetchById" resultType="com.gc.stcc.indexcal.common.model.IndexManageCalJobConfig" parameterType="Integer">
+        select <include refid="Base_Column_List" /> from index_manage_index_cal_config
+        <where>
+            <if test="jobId != null">
+                id = #{jobId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

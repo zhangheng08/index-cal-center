@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: index-sz-dist-congestion
+  main:
+    allow-bean-definition-overriding: false
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  datasource:
+    dynamic:
+      druid:
+        validation-query: select 1
+      primary: sz
+      strict: false
+      datasource:
+        sz:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          type: com.alibaba.druid.pool.DruidDataSource
+          url: jdbc:mysql://122.9.102.186:3307/sz_brain?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+          username: root
+          password: Mysql_123456
+        cal:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          type: com.alibaba.druid.pool.DruidDataSource
+          url: jdbc:mysql://10.2.25.197:3306/index_cal_center?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+          username: root
+          password: Mysql_123
+  cache:
+    type: ehcache
+    ehcache:
+      config: ehcache.xml
+server:
+  port: 8365
+  servlet:
+    context-path: /
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  typeAliasesPackage: com.gc.stcc.indexcal.sz.distcongest.entiy.model
+  global-config:
+    db-config:
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8356/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 30
+
+debug: true
+
+xxl:
+  job:
+    accessToken:
+    admin:
+      addresses: http://localhost:8351/xxl-job-admin
+    executor:
+      address:
+      ip:
+      port: 8358
+      appname: dis-congest-flow-index-cal
+      logpath: /tmp/xxl-job/jobhandler
+      logretentiondays: 30

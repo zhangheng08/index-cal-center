@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>指标计算demo</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+</head>
+
+<style type="text/css">
+
+    body {
+        font-size: 12px;
+    }
+
+    .dialog-param {
+        width: 30%;
+        height: 700px;
+        position: relative;
+        margin-left: 10%;
+        background-color: azure;
+        box-shadow:2px 2px 5px #ccc;
+    }
+
+    .dialog-param table {
+        width: 100%;
+        height: 80%;
+        float: top;
+        border: 1px dashed #bbb;
+    }
+
+    .dialog-param table tr td {
+        height: 45px;
+        border: 1px dashed pink;
+    }
+
+    .dialog-param button {
+        float: right;
+        margin-left: 3px;
+        margin-right: 10px;
+        width: 140px;
+        height: 36px;
+        margin-top: 30px;
+    }
+
+</style>
+
+<body>
+
+    <div class="dialog-param">
+
+        <table>
+            <tr><td>名称：</td><td><input type="text" /></td></tr>
+            <tr><td>描述：</td><td><input /></td></tr>
+            <tr><td>驱动：</td><td><input /></td></tr>
+            <tr><td>指标计算数据源：</td><td>是<input type="radio" name="isCalSou" th:value="0"/>&nbsp;否<input type="radio" name="isCalSou" th:value="1"/></td></tr>
+            <tr><td>数据库连接信息：</td><td><input /></td></tr>
+            <tr><td>用户名：</td><td><input /></td></tr>
+            <tr><td>密码：</td><td><input /></td></tr>
+            <tr><td>数据库驱动类型：</td><td><input /></td></tr>
+            <tr><td>驱动程序版本：</td><td><input /></td></tr>
+        </table>
+
+        <div>
+            <button type="button" style="background-color: lightblue">确定</button>
+            <button type="button">取消</button>
+        </div>
+
+    </div>
+
+<script th:inline="javascript">
+
+
+</script>
+
+</body>
+
+</html>

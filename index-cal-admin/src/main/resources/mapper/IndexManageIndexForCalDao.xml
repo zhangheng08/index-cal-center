@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gc.stcc.indexcal.manager.model.mapper.IndexManageIndexForCalDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.gc.stcc.indexcal.common.model.IndexManageIndexForCalEntity" id="indexManageIndexForCalMap">
+        <result property="id" column="id"/>
+        <result property="indexId" column="index_id"/>
+        <result property="originTableName" column="origin_table_name"/>
+        <result property="resultTableName" column="result_table_name"/>
+        <result property="columnNames" column="column_names"/>
+        <result property="dimensionIds" column="dimension_ids"/>
+        <result property="calColumnNames" column="cal_column_names"/>
+        <result property="calDimensionIds" column="cal_dimension_ids"/>
+    </resultMap>
+
+    <select id="selectIndexCalDefineVOByCode" parameterType="java.lang.String" resultType="com.gc.stcc.indexcal.common.vo.IndexCalDefineVO">
+        SELECT
+            *
+        FROM
+            index_manage_index_for_cal
+        LEFT JOIN
+            index_manage_index
+        ON
+            index_manage_index_for_cal.index_id = index_manage_index.id
+        WHERE
+            index_manage_index.code = #{indexCode}
+    </select>
+</mapper>

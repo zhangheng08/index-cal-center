@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gc.stcc.indexcal.manager.model.mapper.IndexManageDimensionMapper" >
+
+    <resultMap id="BaseResultMap" type="com.gc.stcc.indexcal.common.model.IndexManageDimension" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="column_name" property="columnName" jdbcType="VARCHAR" />
+        <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+        <result column="ref_id" property="refId" jdbcType="VARCHAR" />
+        <result column="table_name" property="tableName" jdbcType="VARCHAR" />
+        <result column="column_type" property="columnType" jdbcType="VARCHAR" />
+        <result column="ref_dim_ids" property="refDimIds" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        `id`, `create_date`, `update_date`, `name`, `column_name`, `is_default`, `ref_id`, `table_name`, `column_type`, `ref_dim_ids`
+    </sql>
+
+    <select id="getAll" resultType="com.gc.stcc.indexcal.common.model.IndexManageDimension">
+        select <include refid="Base_Column_List" /> from index_manage_dimension
+    </select>
+
+</mapper>

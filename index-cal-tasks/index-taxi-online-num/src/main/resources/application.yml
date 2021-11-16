@@ -1,0 +1,89 @@
+spring:
+  application:
+    name: index-taxi-online-num
+  main:
+    allow-bean-definition-overriding: false
+  cache:
+    type: ehcache
+    ehcache:
+      config: ehcache.xml
+server:
+  port: 8364
+  servlet:
+    context-path: /
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8356/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 30
+
+hive:
+  url: jdbc:hive2://10.2.25.196:10000/stcc_common_model
+  driver-class-name: org.apache.hive.jdbc.HiveDriver
+  type: com.alibaba.druid.pool.DruidDataSource
+  user: hadoopsuper
+  password: Ehualu123456
+  # 下面为连接池的补充设置，应用到上面所有数据源中
+  # 初始化大小，最小，最大
+  initialSize: 1
+  minIdle: 3
+  maxActive: 20
+  # 配置获取连接等待超时的时间
+  maxWait: 60000
+  # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+  timeBetweenEvictionRunsMillis: 60000
+  # 配置一个连接在池中最小生存的时间，单位是毫秒
+  minEvictableIdleTimeMillis: 30000
+  validationQuery: select 1
+  testWhileIdle: true
+  testOnBorrow: false
+  testOnReturn: false
+  # 打开PSCache，并且指定每个连接上PSCache的大小
+  poolPreparedStatements: true
+  maxPoolPreparedStatementPerConnectionSize: 20
+
+mysql:
+  url: jdbc:mysql://10.2.25.197:3306/index_cal_center?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  type: com.alibaba.druid.pool.DruidDataSource
+  user: root
+  password: Mysql_123
+  # 下面为连接池的补充设置，应用到上面所有数据源中
+  # 初始化大小，最小，最大
+  initialSize: 1
+  minIdle: 3
+  maxActive: 20
+  # 配置获取连接等待超时的时间
+  maxWait: 60000
+  # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+  timeBetweenEvictionRunsMillis: 60000
+  # 配置一个连接在池中最小生存的时间，单位是毫秒
+  minEvictableIdleTimeMillis: 30000
+  validationQuery: select 1
+  testWhileIdle: true
+  testOnBorrow: false
+  testOnReturn: false
+  # 打开PSCache，并且指定每个连接上PSCache的大小
+  poolPreparedStatements: true
+  maxPoolPreparedStatementPerConnectionSize: 20
+
+debug: true
+
+xxl:
+  job:
+    accessToken:
+    admin:
+      addresses: http://localhost:8351/xxl-job-admin
+    executor:
+      address:
+      ip:
+      port: 8359
+      appname: index-taxi-online-num-cal-executor-local
+      logpath: /tmp/xxl-job/jobhandler
+      logretentiondays: 30

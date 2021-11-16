@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: index-calculate-manager
+  main:
+    allow-bean-definition-overriding: true
+  cache:
+    type: ehcache
+    ehcache:
+      config: ehcache.xml
+server:
+  port: 8354
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  tomcat:
+    uri-encoding: UTF-8
+
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  typeAliasesPackage: com.gc.stcc.indexcal.model.entity
+  global-config:
+    id-type: 0
+    field-strategy: 2
+    db-column-underline: true
+    refresh-mapper: true
+    key-generator: com.baomidou.mybatisplus.incrementer.H2KeyGenerator
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    sql-parser-cache: true
+    db-config:
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8356/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 30
+
+dwd:
+  db:
+    type: HIVE

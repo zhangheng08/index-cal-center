@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>指标计算demo</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+</head>
+
+<style type="text/css">
+
+    body {
+        font-size: 12px;
+    }
+
+    .index-cal-list-css {
+        width: auto;
+        height: 600px;
+    }
+
+    .index-cal-list-columns {
+        width: 80%;
+        height: 300px;
+        float: left;
+        margin-top: 20px;
+        background-color: beige;
+    }
+
+    .index-cal-list-css div {
+        width: 330px;
+        height: 600px;
+        background-color: #7f110010;
+        border: 1px dotted grey;
+        float: left;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .index-cal-list-css table {
+        width: 100%;
+        height: auto;
+        background-color: #7f110010;
+        border: 1px dotted grey;
+        float: left;
+    }
+
+    .index-cal-list-css table tr {
+        height: 45px;
+        width: 100%;
+        margin: 1px 1px 1px 1px;
+        background-color: azure;
+    }
+
+    .index-cal-list-css table td {
+        padding-left: 15px;
+    }
+
+    .index-cal-list-columns table {
+
+    }
+
+    .index-cal-list-columns td {
+        height: 30px;
+        min-width: 60px;
+        width: auto;
+        text-align: center;
+        margin: 1px 1px 1px 1px;
+        background-color: lightblue;
+        border: 1px solid gray;
+    }
+
+    .bold-font {
+        font-weight: bold;
+        color: green;
+    }
+
+    .grey-font {
+        color: darkgrey;
+    }
+</style>
+
+<body>
+
+    <div class="index-cal-list-css">
+        <div>
+            <table>
+                <tr>
+                    <td id="dmgjysxlzs">地面公交运送效率指数</td>
+                </tr>
+                <tr>
+                    <td id="kyl">客运量</td>
+                </tr>
+                <tr>
+                    <td id="ryxcc">日运行车次</td>
+                </tr>
+                <tr>
+                    <td id="clbyl">车辆保有量</td>
+                </tr>
+                <tr>
+                    <td id="rjrcxcs">人均日出行次数</td>
+                </tr>
+                <tr>
+                    <td id="yssd">运送速度</td>
+                </tr>
+                <tr>
+                    <td id="zdl">正点率</td>
+                </tr>
+                <tr>
+                    <td id="bcdxl">班次兑现率</td>
+                </tr>
+                <tr>
+                    <td id="zdcjl">站点乘降量</td>
+                </tr>
+                <tr>
+                    <td id="ccl" onclick="tdClickEvent('ccl', 'dwd_taxi_gps')">出车率</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table id="column_list">
+
+            </table>
+        </div>
+        <div>
+            <table class="grey-font">
+                <tr>
+                    <td id="sjjg" class="bold-font" onclick="fetchDimInfo()">时间间隔</td>
+                </tr>
+                <tr>
+                    <td id="sjd" class="bold-font">时间段</td>
+                </tr>
+                <tr>
+                    <td id="ld">路段</td>
+                </tr>
+                <tr>
+                    <td id="lwdj">路网等级</td>
+                </tr>
+                <tr>
+                    <td id="gjgs">公交公司</td>
+                </tr>
+                <tr>
+                    <td id="gjxl">公交线路</td>
+                </tr>
+                <tr>
+                    <td id="ctky">长途客运站</td>
+                </tr>
+                <tr>
+                    <td id="wxpqy">危险品企业</td>
+                </tr>
+                <tr>
+                    <td id="hy">行业</td>
+                </tr>
+                <tr>
+                    <td id="gjzd">公交站点</td>
+                </tr>
+                <tr>
+                    <td id="rllx">燃料类型</td>
+                </tr>
+                <tr>
+                    <td id="ptgllx">普通公路类型</td>
+                </tr>
+                <tr>
+                    <td id="ptglsjdj">普通公路事件等级</td>
+                </tr>
+                <tr>
+                    <td id="cslwsjlx">城市路网事件类型</td>
+                </tr>
+                <tr>
+                    <td id="gsglsjyy">高速公路事件原因</td>
+                </tr>
+                <tr>
+                    <td id="rqtz">日期特征</td>
+                </tr>
+                <tr>
+                    <td id="yyxl">运营线路</td>
+                </tr>
+                <tr>
+                    <td id="dtxl">地铁线路</td>
+                </tr>
+                <tr>
+                    <td id="dtzd">地铁站点</td>
+                </tr>
+                <tr>
+                    <td id="qy" class="bold-font" onclick="fetchRegionColumns()">区域</td>
+                </tr>
+                <tr>
+                    <td id="yh">业户</td>
+                </tr>
+                <tr>
+                    <td id="hbfx">航班方向</td>
+                </tr>
+                <tr>
+                    <td id="czcgs" class="bold-font" onclick="fetchTaxiCompanyColumns('dwd_dim_taxi_company')">出租车公司</td>
+                </tr>
+                <tr>
+                    <td id="czcl">出租车辆</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table id="dim_column_list">
+
+            </table>
+        </div>
+    </div>
+
+    <div class="index-cal-list-columns">
+        <table id="cal-columns-tbl">
+            <tr></tr>
+        </table>
+    </div>
+
+<script th:inline="javascript">
+
+    function tdClickEvent(td_id, tbl) {
+
+        $.ajax({
+            url:'/demo/columnInfo/' + tbl,
+            type : "get",
+            dataType: 'json',
+            data:{
+            },
+            success: function(data){
+
+                if (data.status=true) {
+                    console.log(data)
+                    if(tbl == 'dwd_taxi_gps') {
+                        $('#cal-columns-tbl tr').append('<td>taxi_rate</td><td>tenant_id</td>');
+                    }
+                    fillColumnTbl(data.resultData);
+                } else {
+                    alert("获取失败！！！");
+                }
+            },
+            error:function() {
+                alert("获取失败！！！");
+            }
+        });
+
+    }
+
+    function fillColumnTbl(columnArray) {
+        for(let i = 0; i < columnArray.length; i ++) {
+            let columnStr = columnArray[i];
+            if(columnArray[i] == 'tenant_id' || columnArray[i] == 'driver_id' || columnArray[i] == 'company_id') {
+                $('#column_list').append('<tr><td class="bold-font" onclick="factDimColumnCheck(\'' + columnStr + '\')">'+ columnStr +'</td></tr>');
+            } else {
+                $('#column_list').append('<tr><td class="grey-font">'+ columnStr +'</td></tr>');
+            }
+        }
+    }
+
+    function factDimColumnCheck(column) {
+        $('#cal-columns-tbl tr').append('<td>' + column + '</td>');
+    }
+
+    function fetchDimInfo() {
+
+        $.ajax({
+            url:'/demo/dim/timeInterval/',
+            type : "get",
+            dataType: 'json',
+            data:{
+            },
+            success: function(data){
+
+                if (data.status=true) {
+                    console.log(data)
+                    fillTimIntervalColumns(data.resultData);
+
+                } else {
+                    alert("获取失败！！！");
+
+                }
+            },
+            error:function() {
+                alert("获取失败！！！");
+            }
+        });
+
+    }
+
+    function fillTimIntervalColumns(dimColumnArray) {
+        $('#dim_column_list tr').remove();
+        for(let i = 0; i < dimColumnArray.length; i ++) {
+            let timeIntervalItem = dimColumnArray[i];
+            $('#dim_column_list').append('<tr onclick="factDimColumnCheck(\'dwd_dim_time_interval[' + timeIntervalItem.name + ']\')"><td>'+ timeIntervalItem.intervalId +'</td><td>'+ timeIntervalItem.name +'</td></tr>');
+        }
+    }
+
+    function fetchTaxiCompanyColumns(tbl) {
+
+        $.ajax({
+            url:'/demo/columnInfo/' + tbl,
+            type : "get",
+            dataType: 'json',
+            data:{
+            },
+            success: function(data){
+                if (data.status=true) {
+                    var dimColumnArray = data.resultData;
+                    $('#dim_column_list tr').remove();
+                    for(let i = 0; i < dimColumnArray.length; i ++) {
+                        let columnName = dimColumnArray[i];
+                        $('#dim_column_list').append('<tr onclick="factDimColumnCheck(\'dwd_dim_taxi_company[' + columnName + ']\')"><td>'+ columnName +'</td></tr>');
+                    }
+                } else {
+                    alert("获取失败！！！");
+                }
+            },
+            error:function() {
+                alert("获取失败！！！");
+            }
+        });
+
+    }
+
+    function fetchRegionColumns() {
+        $('#dim_column_list tr').remove();
+        $('#dim_column_list').append('<tr onclick="factDimColumnCheck(\'dwd_dim_dist[行政区域]\')"><td>行政区域</td></tr>');
+        $('#dim_column_list').append('<tr onclick="factDimColumnCheck(\'dwd_dim_dist[重点区域]\')"><td>重点区域</td></tr>');
+        $('#dim_column_list').append('<tr onclick="factDimColumnCheck(\'dwd_dim_dist[交通小区]\')"><td>交通小区</td></tr>');
+        $('#dim_column_list').append('<tr onclick="factDimColumnCheck(\'dwd_dim_dist[环线]\')"><td>环线</td></tr>');
+    }
+
+</script>
+
+</body>
+
+</html>

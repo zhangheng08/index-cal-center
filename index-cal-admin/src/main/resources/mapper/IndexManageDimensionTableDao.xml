@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gc.stcc.indexcal.manager.model.mapper.IndexManageDimensionTableDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.gc.stcc.indexcal.common.model.IndexManageDimensionTableEntity" id="indexManageDimensionTableMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="tableName" column="table_name"/>
+        <result property="columnDimensionName" column="column_dimension_name"/>
+        <result property="columnDimensionValue" column="column_dimension_value"/>
+        <result property="dimensionId" column="dimension_id"/>
+    </resultMap>
+
+
+</mapper>

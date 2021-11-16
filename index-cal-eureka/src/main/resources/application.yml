@@ -1,0 +1,15 @@
+server:
+  port: 8356
+eureka:
+   server:
+      enable-self-preservation: true
+      eviction-interval-timer-in-ms: 50000
+   instance:
+      hostname: eureka01
+   client:
+      healthcheck:
+         enabled: false
+      register-with-eureka: false
+      fetch-registry: false
+      service-url:
+         defaultZone: http://eureka01:8356/eureka

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="log.path">log</Property>
+    </Properties>
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level - %msg%n"/>
+        </console>
+        <RollingFile name="RollingFileInfo" fileName="${log.path}/exec.log" filePattern="${log.path}/logs/${date:yyyy-MM}/WeixinRedPack-%d{yyyy-MM-dd}.log.zip">
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingFile>
+    </appenders>
+    <loggers>
+        <AsyncRoot level="info">
+	        <appender-ref ref="Console"/>
+	        <appender-ref ref="RollingFileInfo"/>
+   	 	</AsyncRoot>
+    	<AsyncLogger name="org.springframework" level="INFO" />
+    	<AsyncLogger name="com.zkey.weixinpayprovider" level="DEBUG"/>
+    </loggers>
+</configuration>
